@@ -36,12 +36,15 @@ class MainWindow(QMainWindow, untitled_1.Ui_MainWindow):
         self.thread_instance1 = thread.thread()
         thread.sender1.data.connect(self.update_map)
 
+        self.img = plt.imread("data/123.png")
+        plt.imshow(self.img, extent=[-100, 100, -100, 100])
+
         for hub_elem in hub.hub_list:
             if hub_elem.type == 0:
                 color = 'blue'
                 size = 50
             if hub_elem.type == 1:
-                color = 'green'
+                color = 'cyan'
                 size = 150
             if hub_elem.type == 2:
                 color = 'red'
@@ -49,6 +52,7 @@ class MainWindow(QMainWindow, untitled_1.Ui_MainWindow):
             plt.scatter(hub_elem.coordinates[0], hub_elem.coordinates[1], facecolor=color, s=size)
 
         self.points = []
+
 
 
     def db_tracks(self): #база данных заказов
@@ -172,11 +176,17 @@ class MainWindow(QMainWindow, untitled_1.Ui_MainWindow):
             point.remove()
         self.points = []
         for elem in data:
-            if elem is None:
+            if elem[0] is None:
                 continue
-            x = elem[0]
-            y = elem[1]
-            self.points.append(self.ax.scatter(x, y, facecolor='orange', s=10))
+            x = elem[0][0]
+            y = elem[0][1]
+            uav_type = elem[1]
+            if uav_type == 0:
+                self.points.append(self.ax.scatter(x, y, facecolor='blue', s=5))
+            elif uav_type == 1:
+                self.points.append(self.ax.scatter(x, y, facecolor='cyan', s=10))
+            else:
+                self.points.append(self.ax.scatter(x, y, facecolor='red', s=15))
         self.canvas.draw()
 
     def start(self):

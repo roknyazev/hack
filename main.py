@@ -24,7 +24,7 @@ def test():
         hub_identifiers.append([hub.identifier, hub.coordinates])
     graph = complete_graph(hub_identifiers)
 
-    for i in range(1000):
+    for i in range(500):
         print(i)
         start = random.randint(0, 9)
         destination = random.randint(0, 9)

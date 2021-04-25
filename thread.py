@@ -14,12 +14,25 @@ class thread(QThread, QObject):
     def run(self):
         for hub_elem in hub.hub_list:
             hub_elem.start_uav()
+
+        print(len(hub.uav_list))
         while True:
             result = []
-            time.sleep(0.3)
-
+            time.sleep(0.7)
+            #if int(time.time()) % 10 == 0:
+            #    print(12345)
+            #
+            i = 0
             for uav_elem in hub.uav_list:
-                result.append(uav_elem.get_current_position(time.time()))
+                result.append([uav_elem.get_current_position(time.time()), uav_elem.uav_type])
+                if uav_elem.is_arrived is True:
+                    print(i)
+                    i += 1
+            if i == len(hub.uav_list):
+                print("New epoch")
+                hub.uav_list = []
+                for hub_elem in hub.hub_list:
+                    hub_elem.start_uav()
             self.slot(result)
 
     @pyqtSlot(name='call_function')

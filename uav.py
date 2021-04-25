@@ -12,6 +12,7 @@ class AbstractUAV:
         self.load = None
         self.move = None
         self.is_arrived = False
+        self.uav_type = None
 
     def get_cost(self, fuel_price, trajectory_length, load):
         if trajectory_length > self.max_trajectory_length:
@@ -56,6 +57,7 @@ class SmallUAV(AbstractUAV):
         self.load_capacity = 1
         self.max_trajectory_length = 150
         self.uav_weight = 35
+        self.uav_type = 0
 
 
 class MiddleUAV(AbstractUAV):
@@ -65,6 +67,7 @@ class MiddleUAV(AbstractUAV):
         self.load_capacity = 5
         self.max_trajectory_length = 250
         self.uav_weight = 160
+        self.uav_type = 1
 
 
 class LargeUAV(AbstractUAV):
@@ -74,3 +77,4 @@ class LargeUAV(AbstractUAV):
         self.load_capacity = 10
         self.max_trajectory_length = 500
         self.uav_weight = 1500
+        self.uav_type = 2

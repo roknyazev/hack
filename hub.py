@@ -53,8 +53,8 @@ class Hub:
                 load = copy.copy(direction[1][-1])
                 uav_elem.set_load([load])
                 uav_elem.start()
-            if (self.type == 1 and len(direction[1]) > 30 and direction[0][4] != "S") or \
-                    (self.type == 2 and len(direction[1]) > 30 and direction[0][4] == "M"):
+            if (self.type == 1 and len(direction[1]) > 5 and direction[0][4] != "S") or \
+                    (self.type == 2 and len(direction[1]) > 5 and direction[0][4] == "M"):
 
 
                 uav_elem = uav.MiddleUAV(len(uav_list) + 1)
@@ -69,7 +69,7 @@ class Hub:
                     direction[1].pop()
                 uav_elem.set_load(load)
                 uav_elem.start()
-            if self.type == 2 and len(direction[1]) > 300 and direction[0][4] == "L":
+            if self.type == 2 and len(direction[1]) > 10 and direction[0][4] == "L":
 
                 uav_elem = uav.LargeUAV(len(uav_list) + 1)
                 uav_list.append(uav_elem)
