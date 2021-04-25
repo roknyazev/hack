@@ -37,7 +37,6 @@ class Hub:
         if self.storage is None:
             return
         for direction in self.storage:
-            print(direction[0])
             if (self.type == 0 and len(direction[1]) > 1) or \
                     (self.type == 1 and len(direction[1]) > 1 and direction[0][4] == "S"):
 

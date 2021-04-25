@@ -11,6 +11,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import thread
+import hub
 
 
 class MainWindow(QMainWindow, untitled_1.Ui_MainWindow):
@@ -32,11 +33,22 @@ class MainWindow(QMainWindow, untitled_1.Ui_MainWindow):
         self.canvas = None
         self.widget = None
         self.map()
-        self.b, = self.ax.scatter(0, 0)
         self.thread_instance1 = thread.thread()
         thread.sender1.data.connect(self.update_map)
 
+        for hub_elem in hub.hub_list:
+            if hub_elem.type == 0:
+                color = 'blue'
+                size = 50
+            if hub_elem.type == 1:
+                color = 'green'
+                size = 150
+            if hub_elem.type == 2:
+                color = 'red'
+                size = 250
+            plt.scatter(hub_elem.coordinates[0], hub_elem.coordinates[1], facecolor=color, s=size)
 
+        self.points = []
 
 
     def db_tracks(self): #база данных заказов
@@ -155,10 +167,16 @@ class MainWindow(QMainWindow, untitled_1.Ui_MainWindow):
         self.canvas.draw()
         self.widget.layout().addWidget(self.canvas, 0, 0)
 
-
     def update_map(self, data):
+        for point in self.points:
+            point.remove()
+        self.points = []
         for elem in data:
-            self.b.scatter(elem[0], elem[1], facecolor='b', s='10')
+            if elem is None:
+                continue
+            x = elem[0]
+            y = elem[1]
+            self.points.append(self.ax.scatter(x, y, facecolor='orange', s=10))
         self.canvas.draw()
 
     def start(self):

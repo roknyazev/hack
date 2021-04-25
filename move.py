@@ -21,8 +21,8 @@ class Move:
         distance = ((self.destination[0] - self.start[0]) ** 2 + (self.destination[1] - self.start[1]) ** 2) ** 0.5
         X = [0, 0]
         if S < distance:
-            X[0] = (self.destination[0] - self.start[0]) / distance * S
-            X[1] = (self.destination[1] - self.start[1]) / distance * S
+            X[0] = self.start[0] + (self.destination[0] - self.start[0]) / distance * S
+            X[1] = self.start[1] + (self.destination[1] - self.start[1]) / distance * S
         else:
             X = None
         return X

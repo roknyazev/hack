@@ -2,6 +2,9 @@ from complete_graph import *
 import random
 import time
 
+import sys
+from PyQt5.QtWidgets import QApplication
+import mainwindow
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -28,37 +31,12 @@ def test():
         package = Package(hub_identifiers[start], hub_identifiers[destination], graph)
         hub_list[start].append_storage(package)
 
-    for hub in hub_list:
-        hub.start_uav()
-
-    for i in range(100):
-
-        for elem in uav_list:
-            print(elem.get_current_position(time.time()))
-
-    for hub in hub_list:
-        hub.start_uav()
-
-    for i in range(100):
-
-        for elem in uav_list:
-            print(elem.get_current_position(time.time()))
-
 
 if __name__ == '__main__':
     test()
 
-    for hub in hub_list:
-        if hub.type == 0:
-            color = 'blue'
-            size = 50
-        if hub.type == 1:
-            color = 'green'
-            size = 150
-        if hub.type == 2:
-            color = 'red'
-            size = 250
-        plt.scatter(hub.coordinates[0], hub.coordinates[1], facecolor=color, s=size)
-    plt.show()
-    
-    print("\nend")
+    app = QApplication(sys.argv)
+    form = mainwindow.MainWindow()
+    form.show()
+    form.start()
+    sys.exit(app.exec_())

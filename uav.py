@@ -52,7 +52,7 @@ class AbstractUAV:
 class SmallUAV(AbstractUAV):
     def __init__(self, identifier):
         super().__init__(identifier)
-        self.mean_v = 50
+        self.mean_v = 5
         self.load_capacity = 1
         self.max_trajectory_length = 150
         self.uav_weight = 35
@@ -61,7 +61,7 @@ class SmallUAV(AbstractUAV):
 class MiddleUAV(AbstractUAV):
     def __init__(self, identifier):
         super().__init__(identifier)
-        self.mean_v = 120
+        self.mean_v = 12
         self.load_capacity = 5
         self.max_trajectory_length = 250
         self.uav_weight = 160
@@ -70,7 +70,7 @@ class MiddleUAV(AbstractUAV):
 class LargeUAV(AbstractUAV):
     def __init__(self, identifier):
         super().__init__(identifier)
-        self.mean_v = 250
+        self.mean_v = 25
         self.load_capacity = 10
         self.max_trajectory_length = 500
         self.uav_weight = 1500
